@@ -3,7 +3,7 @@ pipeline
 stages
 {
  stage ('scm checkout')
-  {steps { git 'https://github.com/kirtis29/simple-java-maven-app/' }}
+  {steps { git 'https://github.com/kirtis29/maven-web-application/' }}
 
 stage ('unit text execution')
   {steps { withMaven(globalMavenSettingsConfig: '096b3d34-4174-4d2d-9449-74a324e547ea', jdk: 'LocalJDK', maven: 'MVN3-8-6', mavenSettingsConfig: '95a97751-59a5-42bd-b14d-7da3f521f542', traceability: true) 
