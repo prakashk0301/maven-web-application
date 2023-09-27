@@ -19,7 +19,7 @@ stage ('sonar analysis and package build')
 }}}
 
 stage ('deploy to dev tomcat')
-{ steps {sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.180:/usr/share/tomcat/webapps/'
+{ steps {sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipeline-cicd/target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.20.180:/usr/share/tomcat/webapps/'
 }}
 
 
