@@ -1,0 +1,30 @@
+pipeline
+{agent any
+stages
+{ 
+ stage ('scm checkout')
+ {steps { git branch: 'master', url: 'https://github.com/prakashk0301/war-web-project' }}
+
+ stage ('unit test execution')
+ {steps { withMaven(globalMavenSettingsConfig: '88067031-b704-4db8-9f10-43532cc29286', jdk: 'LocalJDK', maven: 'LocalMVN', mavenSettingsConfig: '437a1625-ac9f-453b-99a1-53bbd6165f5c', traceability: true) 
+  {sh 'mvn test'} 
+}}
+
+ stage ('build')
+{steps
+  
+   { withMaven(globalMavenSettingsConfig: '88067031-b704-4db8-9f10-43532cc29286', jdk: 'LocalJDK', maven: 'LocalMVN', mavenSettingsConfig: '437a1625-ac9f-453b-99a1-53bbd6165f5c', traceability: true)
+
+  {sh 'mvn package '}
+
+}} 
+
+
+stage ('deploy to dev tomcat')
+ {steps { sshagent(['devtomcat'])
+  {sh 'scp -o StrictHostKeyChecking=no **/*.war ec2-user@172.31.31.22:/usr/share/tomcat/webapps/'
+ }} }
+
+
+}
+}
